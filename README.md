@@ -1,18 +1,21 @@
 # Appointment Booking Agents Vertical Starter Kit
 
-[x] Connect Google Calendar (Replaceable with any Calendar or CRM)
-[x] Greet Users and Collect basic Info
-[x] Check for Available Time Slots for the Dental Clinic (Can be any Business)
-[x] Suggest TimeSlots and Confirm the final One with User
-[x] Schedule Booking in Google Calendar
-[x] Create a save a Draft Email in Gmail (Replaceable with any Mail Service)
-[ ] Change TimeZone from UTC to User Specific.
-[ ] Confirmation Call after Booking and Cron Job to schedule 
-[ ] Add Voice Modality with providers (Twillio, Vapi, Bland)
+## Features
+
+- [x] Connect Google Calendar (Replaceable with any Calendar or CRM)
+- [x] Greet Users and Collect basic Info
+- [x] Check for Available Time Slots for the Dental Clinic (Can be any Business)
+- [x] Suggest TimeSlots and Confirm the final One with User
+- [x] Schedule Booking in Google Calendar
+- [x] Create a save a Draft Email in Gmail (Replaceable with any Mail Service)
+- [ ] Change TimeZone from UTC to User Specific
+- [ ] Confirmation Call after Booking and Cron Job to schedule
+- [ ] Add Voice Modality with providers (Twillio, Vapi, Bland)
 
 ## Directory Structure
-- All prototyping notebooks are in the prototypes directory.
-- All final agents will live in in the src directory.
+
+- All prototyping notebooks are in the `prototypes` directory
+- All final agents live in the `src` directory
 
 ## Getting Started
 
@@ -20,115 +23,98 @@
 
 1. Docker
 2. Composio, Google AI Studio and LangSmith API Key
-3. Setup following either in composio dashboard or through CLI or Jupyter Notebook.
-   - composio add googlecalendar gmail
-   - composio triggers enable GMAIL_NEW_GMAIL_MESSAGE
+3. Setup the following either in Composio dashboard or through CLI/Jupyter Notebook:
+   ```bash
+   composio add googlecalendar gmail
+   composio triggers enable GMAIL_NEW_GMAIL_MESSAGE
+   ```
 
 ### Local Setup
 
-To get startedfollow these steps:
-
 1. **Clone the repository:**
 
-   ```sh
+   ```bash
    git clone https://github.com/...
    cd ...
    ```
 
 2. **Create a `.env` file:**
 
-Copy the `.env.example` file to `.env` and update the environment variables as needed:
+   ```bash
+   cp .env.example .env
+   ```
 
-```sh
-cp .env.example .env
-```
+   Update the environment variables as needed.
 
 3. **Run LangGraph Server:**
 
-#### Using Docker
+   #### Using Docker
 
- - Install Docker Desktop
+   - Install Docker Desktop
+   - Open Docker Desktop
+   - Run container:
+     ```bash
+     docker compose up
+     ```
+   - Or run in detached mode:
+     ```bash
+     docker compose up -d
+     ```
 
- - Open Docker Desktop
+4. **Access LangGraph Studio**
+   - Open [LangGraph Studio](https://smith.langchain.com/studio/thread?baseUrl=http%3A%2F%2F127.0.0.1%3A8123)
 
- - Run Below Command to create Docker Image & also Container up
+### Development
 
- ```bash
- docker compose up 
- ```
+**Applying Changes:**
 
- Or if we want to run in detach mode ( Background )
+1. Stop the container:
+   ```bash
+   docker compose down
+   ```
+2. Restart the container:
+   ```bash
+   docker compose up -d
+   ```
+   Note: Changes outside the `src` directory require rebuilding the image.
 
- ```bash
- docker compose up -d 
- ```
+### Alternative Setup Methods
 
-### Step 03 : Open Langgraph Studio
+#### A. Using LangGraph CLI
 
- - Click Below Link to view your graph
+1. Install uv package manager:
 
- <a href="https://smith.langchain.com/studio/thread?baseUrl=http%3A%2F%2F127.0.0.1%3A8123">Langgraph Studio URL</a>
+   ```bash
+   pip install uv
+   ```
 
+2. Create and activate virtual environment:
 
-### Step 04 : How to reflect your change in container
+   ```bash
+   uv venv
+   source .venv/bin/activate
+   ```
 
- - Simply Down Your Container
+3. Install packages from pyproject.toml:
 
- ```bash
- docker compose down
- ```
+   ```bash
+   uv run
+   ```
 
- - Then again up your container
+4. Run LangGraph Server:
+   ```bash
+   uv pip install langgraph-cli
+   uv run langgraph up
+   ```
+   Note: If you encounter errors, stop all containers, run `docker system prune`, and try again.
 
- ```bash
- docker compose up -d
- ```
+#### B. Using Google Gemini Instead of OpenAI
 
- - It's changes are outside src directory rebuild the image.
- 
-### Optional: 
+To switch models, update line 26 in `configuration.py`:
 
-##### A. Run using LangGraph CLI
-
-a. Install uv package manager ```python pip install uv```
-
-b. Create Virtual Environment and activate it 
-```python 
-uv venv
-source .venv/bin/activate
+```python
+# From:
+default="openai/gpt-4o"
+# To:
+default="google_genai/gemini-1.5-flash"
 ```
-
-c. Install packages in pyproject.toml
-```python 
-uv run
-```
-
-d. Run LangGraph Server
-- Ensure you have docker engine running (i.e: Open Docker Desktop)
-```python 
-uv pip install langgraph-cli
-uv run langgraph up
-```
-
-If you get any error in `d` step stop all containers, run `docker system prune` and try again.
-
-
----------------------------------------------------------------------------------------------
-
-
-
-
-##### B. Change model from OPENAI to GOOGLE GEMINI (OPTIONAL)
-
- - in `configration.py` file change the below 26 number line:
- 
-
- ```code
-  default="openai/gpt-4o",
- ```
-
- To
-
- ```code
- default="google_genai/gemini-1.5-flash",
- ```
