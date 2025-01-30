@@ -6,6 +6,7 @@ import logging
 
 from langgraph.prebuilt import ToolNode
 from composio_langgraph import Action, ComposioToolSet
+from appointment_agent.tools.make_confirmation_call import make_confirmation_call
 
 # Configure logging
 logging.basicConfig(
@@ -37,4 +38,4 @@ schedule_tools_write = composio_toolset.get_tools(
     ]
 )
 
-schedule_tools_write_node = ToolNode(schedule_tools_write)
+schedule_tools_write_node = ToolNode(schedule_tools_write + [make_confirmation_call])

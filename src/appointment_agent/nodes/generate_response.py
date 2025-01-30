@@ -11,11 +11,13 @@ from appointment_agent.state import AppointmentAgentState
 from appointment_agent.prompts import AGENT_SYSTEM
 from appointment_agent.nodes._tools import schedule_tools_set
 
+from appointment_agent.tools.make_confirmation_call import make_confirmation_call
+
 model = ChatGoogleGenerativeAI(model = "gemini-2.0-flash-exp")
 # model = ChatOpenAI(model="gpt-4o", temperature=1)
 
 # Bind tools to the model
-model_with_tools = model.bind_tools(schedule_tools_set)
+model_with_tools = model.bind_tools(schedule_tools_set + [make_confirmation_call])
 
 async def generate_response(
     state: AppointmentAgentState, config: RunnableConfig
