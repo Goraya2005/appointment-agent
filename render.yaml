@@ -1,27 +1,27 @@
 services:
   # Redis Service
   - type: redis
-    name: chronos-redis
+    name: langgraph-redis
     plan: free
     envVars:
       - key: REDIS_URI
-        value: redis://chronos-redis:6379
+        value: redis://langgraph-redis:6379
 
   # PostgreSQL Service
   - type: postgres
-    name: chronos-db
+    name: langgraph-postgres
     plan: free
     envVars:
       - key: POSTGRES_DB
         value: postgres
       - key: POSTGRES_USER
         value: postgres
-      - key: POSTGRES_PASSWORD
+      - key: postgres
         value: postgres
 
-  # API Service
+  # LangGraph API Service
   - type: web
-    name: chronos-api
+    name: langgraph-api
     env: docker
     build:
       dockerfile: Dockerfile
@@ -29,9 +29,9 @@ services:
     port: 8000
     envVars:
       - key: REDIS_URI
-        value: redis://chronos-redis:6379
+        value: redis://langgraph-redis:6379
       - key: DATABASE_URI
-        value: postgres://postgres:postgres@chronos-db:5432/postgres?sslmode=disable
+        value: postgres://postgres:postgres@langgraph-postgres:5432/postgres?sslmode=disable
       - key: LANGSMITH_API_KEY
         value: ${LANGSMITH_API_KEY} # Set this in Render's environment variables
     healthCheckPath: /health
