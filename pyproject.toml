@@ -1,9 +1,9 @@
 [project]
-name = "edusmart-students-agent"
+name = "appointment-agent"
 version = "0.0.1"
-description = "EduSmart Student Agentic System is the world first AI Teacher that actually works."
+description = "My Agentic System is the world's Best AI Appointment Booking Agent that actually works."
 authors = [
-    { name = "Muhammad Junaid", email = "mr.junaidshaukat@gmail.com" },
+    { name = "Naeem Goraya", email = "goraya2005@gmail.com" },
 ]
 readme = "README.md"
 license = { text = "Commercial" }

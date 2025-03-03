@@ -1,6 +1,6 @@
 # Appointment Booking Agents Vertical Starter Kit
 
-A modular and AI-powered appointment booking agent designed to streamline scheduling for businesses, starting with dental clinics. Built with LangGraph, Composio, and AI Telephony, this agent integrates Google Calendar and Gmail to manage appointments, send confirmations, and handle outbound phone calls. 
+A modular and AI-powered appointment booking agent designed to streamline scheduling for businesses, starting with Goraya Health Care clinic. Built with LangGraph, Composio, and AI Telephony, this agent integrates Google Calendar and Gmail to manage appointments, send confirmations, and handle outbound phone calls. 
 
 Users can check available time slots, confirm bookings, and receive queue updates via email, call, or message. The system is highly customizable, supporting alternative CRM, mail services, and voice providers like Twilio or Vapi. Deployed on Vercel and LangGraph Cloud, with robust testing via LangSmith and LLM unit tests.
 
@@ -11,11 +11,11 @@ Users can check available time slots, confirm bookings, and receive queue update
 - Deployment (Vercel, LangGraph Cloud)
 - Tests (LangSmith, LLM Unit Tests Code.)
 - Development (IDE: VS-Code/Cursor) + Google Collab + Docker
-- SCM [GitHub] [panaversity/learn-agentic-ai/AGENTIC_PROTOTYPES/appointments_agent](https://github.com/panaversity/learn-agentic-ai/edit/main/AGENT_PROTOTYPES) (We will be actively develping it further here in this repo in live Agentic AI sessions.)
+- SCM [GitHub] [goraya2005/appointments_agent](https://github.com/goraya2005/appointments_agent) (We will be actively develping it further here in this repo in live Agentic AI sessions.)
 - CRM/Calendar/System [Google Calendar, Gmail]
 
 ## User Story
-* User Wants to Book an Appointment with Dentist Clinic
+* User Wants to Book an Appointment with Goraya Health Care Clinic
 * Share available time schedule (i.e: Monday 09-06 PM)
 * At what time can I come and my preferences are 4 PM DATE.
 * User wants to know about Wait Time and Queue Number.
@@ -25,7 +25,7 @@ Users can check available time slots, confirm bookings, and receive queue update
 
 - [x] Connect Google Calendar (Replaceable with any Calendar or CRM)
 - [x] Greet Users and Collect basic Info
-- [x] Check for Available Time Slots for the Dental Clinic (Can be any Business)
+- [x] Check for Available Time Slots for the Goraya Health Care Clinic (Can be any Business)
 - [x] Suggest TimeSlots and Confirm the final One with User
 - [x] Schedule Booking in Google Calendar
 - [x] Create a save a Draft Email in Gmail (Replaceable with any Mail Service)
@@ -68,6 +68,10 @@ Users can check available time slots, confirm bookings, and receive queue update
 2. **Create a `.env` file:**
 
    ```bash
+   python -m venv venv
+   venv\Scripts\Activate
+touch .env
+
    cp .env.example .env
    ```
 
