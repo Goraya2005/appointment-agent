@@ -1,19 +1,16 @@
-# render.yaml
-
 services:
   # Redis Service
   - type: redis
-    name: langgraph-redis
-    plan: free # Choose the appropriate plan (free, starter, etc.)
-    healthCheckPath: /ping # Render uses HTTP health checks, so Redis healthcheck needs to be adapted
+    name: chronos-redis
+    plan: free
     envVars:
       - key: REDIS_URI
-        value: redis://langgraph-redis:6379
+        value: redis://chronos-redis:6379
 
   # PostgreSQL Service
   - type: postgres
-    name: langgraph-postgres
-    plan: free # Choose the appropriate plan (free, starter, etc.)
+    name: chronos-db
+    plan: free
     envVars:
       - key: POSTGRES_DB
         value: postgres
@@ -21,11 +18,10 @@ services:
         value: postgres
       - key: POSTGRES_PASSWORD
         value: postgres
-    healthCheckPath: /health # Render uses HTTP health checks, so PostgreSQL healthcheck needs to be adapted
 
   # API Service
   - type: web
-    name: langgraph-api
+    name: chronos-api
     env: docker
     build:
       dockerfile: Dockerfile
@@ -33,12 +29,9 @@ services:
     port: 8000
     envVars:
       - key: REDIS_URI
-        value: redis://langgraph-redis:6379
+        value: redis://chronos-redis:6379
       - key: DATABASE_URI
-        value: postgres://postgres:postgres@langgraph-postgres:5432/postgres?sslmode=disable
+        value: postgres://postgres:postgres@chronos-db:5432/postgres?sslmode=disable
       - key: LANGSMITH_API_KEY
         value: ${LANGSMITH_API_KEY} # Set this in Render's environment variables
-    healthCheckPath: /health # Add a health check endpoint in your API
-
-  # Cloudflared Tunnel (Not directly supported by Render)
-  # Note: Render does not support running cloudflared as a service. You may need to use a separate tunneling service (e.g., ngrok) or configure Render's native HTTPS/domain settings.
+    healthCheckPath: /health
